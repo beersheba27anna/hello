@@ -1,11 +1,16 @@
-numbers = [1, 2, 3] # iterable type
+x = 0
+while x < 5:
+    print(x)
+    x += 1
 
-sum = 0
-for num in numbers:
-    sum = sum + num
-print(sum)
+def exists(numbers, num):
+    # numbers - list of integers
+    # num - int number being tested for existence
+    size, i = len(numbers), 0
+    while i < size and numbers[i] != num:
+        i += 1
+    return i < size
 
-# Range
-# range(start=0, stop, step=1)
-for i in range(5):
-    print(i)
+numbers = [10, 20, 30]
+print(exists(numbers, 15)) # False
+print(exists(numbers, 30)) # True
