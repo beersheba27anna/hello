@@ -1,16 +1,9 @@
-x = 0
-while x < 5:
-    print(x)
-    x += 1
+import random
 
-def exists(numbers, num):
-    # numbers - list of integers
-    # num - int number being tested for existence
-    size, i = len(numbers), 0
-    while i < size and numbers[i] != num:
-        i += 1
-    return i < size
+def create_random_list(min, max, size):
+    res = []
+    for i in range(size):
+        res.append(random.randint(min, max))
+    return res
 
-numbers = [10, 20, 30]
-print(exists(numbers, 15)) # False
-print(exists(numbers, 30)) # True
+print(create_random_list(1, 100, 5))
