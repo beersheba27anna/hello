@@ -7,6 +7,7 @@ def int_reverse(num):
     sign = ""
     if num < 0:
         sign = "-"
+        num = -1*num
     result = ""
     while num >= 10:
         result += str(num % 10)
