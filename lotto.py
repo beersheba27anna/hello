@@ -4,10 +4,12 @@ def exists(numbers, num):
     """
     returns True if "num" exists in list "numbers" otherwise False
     """
-    for element in numbers:
-        if isinstance(element, int) and num == element:
-            return True
-    return False
+    i = 0
+    while i < len(numbers) and \
+            (not isinstance(numbers[i], int) or
+             numbers[i] != num):
+        i += 1
+    return i < len(numbers)
 
 def distinct_random_numbers(min, max, size):
     """
@@ -21,12 +23,11 @@ def distinct_random_numbers(min, max, size):
     result = []
 
     #integer numbers are assumed
-    if max - min + 1 < size:
-        return result
-    while len(result) < size:
-        new_number = random.randint(min, max)
-        if not exists(result, new_number):
-            result.append(new_number)
+    if max - min + 1 >= size:
+        while len(result) < size:
+            new_number = random.randint(min, max)
+            if not exists(result, new_number):
+                result.append(new_number)
     return result
 
 print (distinct_random_numbers(1, 49, 7))
