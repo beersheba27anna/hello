@@ -1,6 +1,7 @@
-l1 = [x for x in range(10)]
-print(l1)
-lEven = [x for x in range(10) if x % 2 == 0]
-print(lEven)
-lEvenStr = [str(x) for x in range(10) if x % 2 == 0]
-print(lEvenStr)
+age = 50
+comment = "child" if age < 13 else "adult"
+
+numbers = [1, 2, 10, 7, 8]
+evenOdd = [str(num) + '.' + ("even" if num % 2 == 0 else "odd")
+    for num in numbers ]
+print(evenOdd)
