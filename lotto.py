@@ -2,15 +2,19 @@ import random
 
 def exists(numbers, num):
     """
+    # numbers list of integers
+    # num - being tested number for existence
     returns True if "num" exists in list "numbers" otherwise False
     """
-    i = 0
-    while i < len(numbers) and \
-            (not isinstance(numbers[i], int) or
-             numbers[i] != num):
-        i += 1
-    return i < len(numbers)
+    matching_numbers = [n for n in numbers if n == num]
+    return len(matching_numbers) > 0
 
+def generate_and_check(numbers, i, min, max):
+    new_number = random.randint(min, max)
+    numbers[i] = new_number if not exists(numbers, new_number)\
+        else generate_and_check(numbers, min, max)
+    return numbers[i]
+    
 def distinct_random_numbers(min, max, size):
     """
     
@@ -21,13 +25,11 @@ def distinct_random_numbers(min, max, size):
     """
 
     result = []
-
     #integer numbers are assumed
     if max - min + 1 >= size:
-        while len(result) < size:
-            new_number = random.randint(min, max)
-            if not exists(result, new_number):
-                result.append(new_number)
+        # populate with default
+        result = [min-1 for _ in range(size)]
+        result = [generate_and_check(result, i, min, max) for i in range(size)]
     return result
 
 print (distinct_random_numbers(1, 49, 7))
