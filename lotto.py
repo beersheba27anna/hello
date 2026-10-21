@@ -12,7 +12,7 @@ def exists(numbers, num):
 def generate_and_check(numbers, i, min, max):
     new_number = random.randint(min, max)
     numbers[i] = new_number if not exists(numbers, new_number)\
-        else generate_and_check(numbers, min, max)
+        else generate_and_check(numbers, i, min, max)
     return numbers[i]
     
 def distinct_random_numbers(min, max, size):
