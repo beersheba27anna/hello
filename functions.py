@@ -5,7 +5,12 @@ def indexOf(numbers, num):
         otherwise -1. Examples: indexOf([10, 20, 30, 20, -1],20) => 1,
         indexOf([10, 20, 30, 20, -1],23) => -1
     """
-    #TODO
+    i = 0
+    size = len(numbers)
+    while i < size and numbers[i] != num:
+        i = i + 1
+    return i if i < size else -1
+
 def lastIndexOf(numbers, num):
     """
         "numbers" - list with int numbers; "num" - int
@@ -13,7 +18,11 @@ def lastIndexOf(numbers, num):
         otherwise -1. Examples: lastIndexOf([10, 20, 30, 20, -1],20) => 3,
         lastIndexOf([10, 20, 30, 20, -1],23) => -1
     """
-    #TODO 
+    i = len(numbers) - 1
+    while i >= 0 and numbers[i] != num:
+        i = i - 1
+    return i
+
 def min_even (numbers):
     """
     "numbers" - list with int numbers
@@ -44,3 +53,12 @@ def sumOfTwoExists(numbers, sum):
 
 
 # print calls for testing the above functions
+# indexOf
+print(indexOf([10, 20, 30, 20, -1], 20))
+print(indexOf([10, 20, 30, 20, -1], 23))
+print(indexOf([], 0))
+
+# lastIndexOf
+print(lastIndexOf([10, 20, 30, 20, -1], 20))
+print(lastIndexOf([10, 20, 30, 20, -1], 23))
+print(lastIndexOf([], 20))
