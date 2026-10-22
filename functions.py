@@ -31,7 +31,12 @@ def min_even (numbers):
     no need to check that assumption (usually the assumptions are never checked ) 
     example: min_even (-10001, 10, 20, 8, -7) => 8
     """ 
-    #TODO
+    result = -1 # default odd number
+    for num in numbers:
+        if num % 2 == 0 and (result == -1 or result > num):
+            result = num
+    return result 
+
 def count(numbers, num) :
     """
     "numbers" - list with int numbers; "num" - int
@@ -62,3 +67,6 @@ print(indexOf([], 0))
 print(lastIndexOf([10, 20, 30, 20, -1], 20))
 print(lastIndexOf([10, 20, 30, 20, -1], 23))
 print(lastIndexOf([], 20))
+
+# min_even
+print(min_even([-10001, 10, 20, 8, -7]))
