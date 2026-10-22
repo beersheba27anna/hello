@@ -1,6 +1,3 @@
-## Class examples
-* hello.py
-* types_overview.py
 # Homework
 ## 1. Homework for 20.10.2026 - List comprehension, conditional operator and slicing added
 * lotto.py
