@@ -1,12 +1,8 @@
-import random
+numbers = [100, 7, 22, -6]
+exists = 10 in numbers
+print(exists, type(exists))
 
-age = random.randint(1, 100)
-print("age =", age)
-if age < 13:
-    print("child")
-elif age < 20:
-    print("junior")
-elif age < 67:
-    print('adult')
-else:
-    print("pensioner")
+def exists(numbers, num):
+    return num in numbers
+
+print(exists(numbers, 10))
