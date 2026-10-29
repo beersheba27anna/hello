@@ -1,14 +1,24 @@
-a:int = 10 # int
-b:float = 10.7 # float
-c:str = "Hello" # str
-d:bool = True # bool
-l:list[int] = [1, 2, 3] # list
-# c = 9 # typing error of vs-code type
+a: int = 0
+if a: # 10 considered as True
+    print(True)
 
-print(type(c))
-
-def add(op1:float, op2:int)->int:
-    result:int = int(op1 + op2)
-    return result
-
-l.append(10 // 2)
+l:list[int] = [1, 2, 3]
+if l:
+    print(True)
+if 0.0: # 0, 0.0 considered as False
+    print(True)
+else:
+    print(False)
+print(bool(l))
+# "False" => True
+# "" => False
+# " " => True
+# [] => False
+if " ": print("space is True")
+n: None = None
+if n is None: print("none")
+if n:
+    print("n containing None is True")
+else:
+    print("n containing None is False")
+# a = None vs code error since None is another type
