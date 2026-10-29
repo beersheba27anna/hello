@@ -69,16 +69,7 @@ def  __existsFromIndex(start, numbers, num):
     return start < size
 
 
-# print calls for testing the above functions
-print(indexOf([10, 20, 30, 20, -1],20)) # should be 1
-print(indexOf([10, 20, 30, 20, -1], 23)) # should be -1
-print(lastIndexOf([10, 20, 30, 20, -1],20)) # should be 3
-print(lastIndexOf([10, 20, 30, 20, -1], 23)) # should be -1
-print(min_even ([-10001, 10, 20, 8, -7])) #should be 8
-print(count([10, 20, 30, 20, -1],20)) #should be 2
-print(count([10, 20, 30, 20, -1],23)) #should be 0
-print(sumOfTwoExists([1, -1, 40, 50, 0], 0)) #should be True
-print(sumOfTwoExists([1, -1, 40, 50, 0], 43)) #should be Frue
+
 
 
 
