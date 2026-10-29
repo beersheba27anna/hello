@@ -1,79 +1,53 @@
-def indexOf(numbers, num):
+def intersection (l1: list[int], l2: list[int]) -> list[int]:
     """
-        "numbers" - list with int numbers; "num" - int
-        if "num" exists in "numbers", returns index of its first occurrence,
-        otherwise -1. Examples: indexOf([10, 20, 30, 20, -1],20) => 1,
-        indexOf([10, 20, 30, 20, -1],23) => -1
+    l1 - list containing non-repeated integer numbers
+    l2 = list containing non-repeated integer numbers
+    returns new list with integer numers existing in both input lists
+    Examples: intersection([1, 2, 3], [4, 3, 1])=> [1, 3]
+    intersection([1, 2, 3], [4, 5, 6])=> [];
     """
-    i = 0
-    size = len(numbers)
-    while i < size and numbers[i] != num:
-        i += 1
-    return i if i < size else -1    
-def lastIndexOf(numbers, num):
+def union (l1: list[int], l2: list[int]) -> list[int]:
     """
-        "numbers" - list with int numbers; "num" - int
-        if "num" exists in "numbers", returns index of its last occurrence,
-        otherwise -1. Examples: lastIndexOf([10, 20, 30, 20, -1],20) => 3,
-        lastIndexOf([10, 20, 30, 20, -1],23) => -1
+    l1 - list containing non-repeated integer numbers
+    l2 = list containing non-repeated integer numbers
+    returns new list with  integer numers existing  in ether list or both
+    Result list shouldn't contain repeated numbers
+    Examples: union([1, 2, 3], [4, 3, 1])=> [1, 2, 3, 4]
+    union([1, 2, 3], [4, 5, 6])=> [1, 2, 3, 4, 5, 6]
+    """   
+def difference (l1: list[int], l2: list[int]) -> list[int]:
     """
-    i = len(numbers) - 1
-    while i >= 0 and numbers[i] != num:
-        i -= 1
-    return i    
-def min_even (numbers):
+    l1 - list containing non-repeated integer numbers
+    l2 = list containing non-repeated integer numbers
+    returns new list with  integer numers existing  in l1
+    but non-existing  l2
+    Examples: difference([1, 2, 3], [4, 3, 1])=> [2]
+    difference([1, 2, 3], [4, 5, 6])=> [1, 2, 3]
     """
-    "numbers" - list with int numbers
-    returns minimal even number
-    assumption: at least one even number exists in "numbers"
-    no need to check that assumption (usually the assumptions are never checked ) 
-    example: min_even ([-10001, 10, 20, 8, -7]) => 8
-    """ 
-    res = 1
-    for num in numbers:
-        if num % 2 == 0 and (res == 1 or num < res):
-            res = num
-    return res        
-def count(numbers, num) :
+def symmetric_difference (l1: list[int], l2: list[int]) -> list[int]:
     """
-    "numbers" - list with int numbers; "num" - int
-    returns count of "num" occurrences in "numbers".
-      Examples: count([10, 20, 30, 20, -1],20) => 2,
-    count([10, 20, 30, 20, -1],23) => 0
+    l1 - list containing non-repeated integer numbers
+    l2 = list containing non-repeated integer numbers
+    returns new list with  integer numers existing  in either list but not in both
+    Examples: symmetric_difference([1, 2, 3], [4, 3, 1])=> [2, 4]
+    symmetric_difference([1, 2, 3], [4, 5, 6])=> [1, 2, 3, 4, 5, 6]
+    """  
+def remove_positive_greater_or_negative_less(numbers:list[int],\
+                         positive_lim: int, negative_lim: int) -> list[int]:
     """
-    result = 0
-    for number in numbers:
-        if number == num:
-            result += 1
-    return result        
-def sumOfTwoExists(numbers, sum):
+    numbers - list with integer numbers
+    returns new list containing all numbers from the input list
+    except the positive ones greater than 'positive_lim' and the negative ones
+    less than 'negative_lim'
+    Example: remove_positive_greater_or_negative_less([1, 2, 11, -3, 10, 15], 10, -3)
+    => [1, 2, -3, 10]
+    """  
+def max_with_negative_duplicate (numbers:list[int]) -> int:
     """
-    Optional task for advanced students
-    To apply only the types discussed at the course up to now
-    "numbers" - list with int numbers; "sum" - int
-    returns True if "numbers" includes two numbers, sum of which equals "sum"
-    Examples: sumOfTwoExists([1, -1, 40, 50, 0], 0) => True;
-    sumOfTwoExists([1, -1, 40, 50, 0], 42) => False
-    """ 
-    # additional helper function __existsFromIndex defined below
-    i = 0
-    limit = len(numbers) - 1 # last index should be length - 2
-    while i < limit and not  __existsFromIndex(i + 1, numbers, sum - numbers[i]):
-        i += 1
-    return i < limit    
-
-def  __existsFromIndex(start, numbers, num):
-    size = len(numbers) 
-    while start < size and numbers[start] != num:
-        start += 1
-    return start < size
-
-
-
-
-
-
-
-
-
-
+    numbers - list with integer numbers
+    returns the maximal element of "numbers" with existing negative duplicate 
+    (example of a number with negative duplicate: number 100, negative duplicate -100)
+    If no such number exists, returns -1
+    Examples: max_with_negative_duplicate([-100, 20, 10, -10, 1, 1, 5, -30, -20, 100]) => 100
+    max_with_negative_duplicate([10, 20, -15, -11, 20]) => -1
+    """                     
