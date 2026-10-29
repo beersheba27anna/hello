@@ -1,4 +1,4 @@
-def int_reverse(num):
+def int_reverse(num:int)->str:
     """
     returns string containing digits  of integer number "num" in reversed order
     if "num" contains only one digit it will return the same digit but as a string
@@ -7,7 +7,7 @@ def int_reverse(num):
     return str(num)[::-1]
 
 
-def create_palindromic_list(start, stop) :
+def create_palindromic_list(start:int, stop:int)->list[int]:
     """
     start, stop are integer numbers
     returns list containing all palindromic numbers in the range from "start" to "stop" 

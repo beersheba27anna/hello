@@ -1,6 +1,6 @@
 import random
 
-def exists(numbers, num):
+def exists(numbers:list[int], num:int)->bool:
     """
     # numbers list of integers
     # num - being tested number for existence
@@ -9,15 +9,14 @@ def exists(numbers, num):
     matching_numbers = [n for n in numbers if n == num]
     return len(matching_numbers) > 0
 
-def generate_and_check(numbers, i, min, max):
+def generate_and_check(numbers:list[int], i:int, min:int, max:int)->int:
     new_number = random.randint(min, max)
     numbers[i] = new_number if not exists(numbers, new_number)\
         else generate_and_check(numbers, i, min, max)
     return numbers[i]
     
-def distinct_random_numbers(min, max, size):
+def distinct_random_numbers(min:int, max:int, size:int)->list[int]:
     """
-    
     returns list with "size" distinct random numbers 
     each number >= "min" and <= "max"
     if creating "size" distinct random numbers is impossible, return empty array
