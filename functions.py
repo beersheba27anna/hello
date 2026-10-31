@@ -6,6 +6,8 @@ def intersection (l1: list[int], l2: list[int]) -> list[int]:
     Examples: intersection([1, 2, 3], [4, 3, 1])=> [1, 3]
     intersection([1, 2, 3], [4, 5, 6])=> [];
     """
+    result: list[int] = [n for n in l1 if n in l2]
+    return result
 def union (l1: list[int], l2: list[int]) -> list[int]:
     """
     l1 - list containing non-repeated integer numbers
@@ -14,7 +16,12 @@ def union (l1: list[int], l2: list[int]) -> list[int]:
     Result list shouldn't contain repeated numbers
     Examples: union([1, 2, 3], [4, 3, 1])=> [1, 2, 3, 4]
     union([1, 2, 3], [4, 5, 6])=> [1, 2, 3, 4, 5, 6]
-    """   
+    """ 
+    result: list[int] = l1[:]
+    for n in l2:
+        if not n in l1:
+            result.append(n)
+    return result        
 def difference (l1: list[int], l2: list[int]) -> list[int]:
     """
     l1 - list containing non-repeated integer numbers
@@ -24,6 +31,8 @@ def difference (l1: list[int], l2: list[int]) -> list[int]:
     Examples: difference([1, 2, 3], [4, 3, 1])=> [2]
     difference([1, 2, 3], [4, 5, 6])=> [1, 2, 3]
     """
+    result: list[int] = [n for n in l1 if not n in l2]
+    return result
 def symmetric_difference (l1: list[int], l2: list[int]) -> list[int]:
     """
     l1 - list containing non-repeated integer numbers
@@ -31,7 +40,12 @@ def symmetric_difference (l1: list[int], l2: list[int]) -> list[int]:
     returns new list with  integer numers existing  in either list but not in both
     Examples: symmetric_difference([1, 2, 3], [4, 3, 1])=> [2, 4]
     symmetric_difference([1, 2, 3], [4, 5, 6])=> [1, 2, 3, 4, 5, 6]
-    """  
+    """ 
+    result: list[int] = difference(l1, l2)
+    for n in l2:
+        if n not in result:
+            result.append(n)
+    return result        
 def remove_positive_greater_or_negative_less(numbers:list[int],\
                          positive_lim: int, negative_lim: int) -> list[int]:
     """
