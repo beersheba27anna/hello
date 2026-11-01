@@ -43,7 +43,7 @@ def symmetric_difference (l1: list[int], l2: list[int]) -> list[int]:
     """ 
     result: list[int] = difference(l1, l2)
     for n in l2:
-        if n not in result:
+        if n not in l1:
             result.append(n)
     return result        
 def remove_positive_greater_or_negative_less(numbers:list[int],\
@@ -56,6 +56,8 @@ def remove_positive_greater_or_negative_less(numbers:list[int],\
     Example: remove_positive_greater_or_negative_less([1, 2, 11, -3, 10, 15], 10, -3)
     => [1, 2, -3, 10]
     """  
+    result = [num for num in numbers if negative_lim <= num <= positive_lim]
+    return result
 def max_with_negative_duplicate (numbers:list[int]) -> int:
     """
     numbers - list with integer numbers
@@ -64,4 +66,21 @@ def max_with_negative_duplicate (numbers:list[int]) -> int:
     If no such number exists, returns -1
     Examples: max_with_negative_duplicate([-100, 20, 10, -10, 1, 1, 5, -30, -20, 100]) => 100
     max_with_negative_duplicate([10, 20, -15, -11, 20]) => -1
-    """                     
+    """
+    result:int = -1
+    for i in range(len(numbers)):
+        num_abs = -numbers[i] if numbers[i] < 0 else numbers[i]
+        if num_abs != 0 and num_abs > result\
+              and __existsFromIndex(i + 1, numbers, -numbers[i]):
+            result = num_abs
+    return result        
+
+
+
+
+def  __existsFromIndex(start:int, numbers: list[int], num: int):
+    size = len(numbers) 
+    while start < size and numbers[start] != num:
+        start += 1
+    return start < size   
+               
