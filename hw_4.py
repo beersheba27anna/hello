@@ -6,6 +6,7 @@ def intersection (l1: list[int], l2: list[int]) -> list[int]:
     Examples: intersection([1, 2, 3], [4, 3, 1])=> [1, 3]
     intersection([1, 2, 3], [4, 5, 6])=> [];
     """
+    return [num for num in l1 if num in l2]
 
 def union (l1: list[int], l2: list[int]) -> list[int]:
     """
@@ -16,6 +17,13 @@ def union (l1: list[int], l2: list[int]) -> list[int]:
     Examples: union([1, 2, 3], [4, 3, 1])=> [1, 2, 3, 4]
     union([1, 2, 3], [4, 5, 6])=> [1, 2, 3, 4, 5, 6]
     """
+    base:list[int] = l1 if len(l1) >= len(l2) else l2
+    addition:list[int] = l2 if len(l1) >= len(l2) else l1
+    result = base[:]
+    for num in addition:
+        if num not in base:
+            result.append(num)
+    return result
 
 def difference (l1: list[int], l2: list[int]) -> list[int]:
     """
@@ -26,6 +34,7 @@ def difference (l1: list[int], l2: list[int]) -> list[int]:
     Examples: difference([1, 2, 3], [4, 3, 1])=> [2]
     difference([1, 2, 3], [4, 5, 6])=> [1, 2, 3]
     """
+    return [num for num in l1 if num not in l2]
 
 def symmetric_difference (l1: list[int], l2: list[int]) -> list[int]:
     """
@@ -35,6 +44,8 @@ def symmetric_difference (l1: list[int], l2: list[int]) -> list[int]:
     Examples: symmetric_difference([1, 2, 3], [4, 3, 1])=> [2, 4]
     symmetric_difference([1, 2, 3], [4, 5, 6])=> [1, 2, 3, 4, 5, 6]
     """
+    common:list[int] = intersection(l1, l2)
+    return union(difference(l1, common), difference(l2, common))
 
 def remove_positive_greater_or_negative_less(numbers:list[int],\
         positive_lim: int, negative_lim: int) -> list[int]:
