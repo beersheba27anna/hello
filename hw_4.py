@@ -57,6 +57,10 @@ def remove_positive_greater_or_negative_less(numbers:list[int],\
     Example: remove_positive_greater_or_negative_less([1, 2, 11, -3, 10, 15], 10, -3)
     => [1, 2, -3, 10]
     """
+    positive_lim = positive_lim if positive_lim > 0 else 0
+    negative_lim = negative_lim if negative_lim < 0 else 0
+    return [num for num in numbers\
+        if num <= positive_lim and num >= negative_lim]
 
 def max_with_negative_duplicate(numbers:list[int]) -> int:
     """
@@ -67,3 +71,10 @@ def max_with_negative_duplicate(numbers:list[int]) -> int:
     Examples: max_with_negative_duplicate([-100, 20, 10, -10, 1, 1, 5, -30, -20, 100]) => 100
     max_with_negative_duplicate([10, 20, -15, -11, 20]) => -1
     """
+    negatives:list[int] = [num for num in numbers if num < 0]
+    max_value = -1
+    for num in numbers:
+        if num <= max_value or num <= 0 or -num not in negatives:
+            continue
+        max_value = num
+    return max_value
