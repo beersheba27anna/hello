@@ -17,7 +17,7 @@ def union (l1: list[int], l2: list[int]) -> list[int]:
     Examples: union([1, 2, 3], [4, 3, 1])=> [1, 2, 3, 4]
     union([1, 2, 3], [4, 5, 6])=> [1, 2, 3, 4, 5, 6]
     """ 
-    result: list[int] = l1[:]
+    result: list[int] = l1.copy()
     for n in l2:
         if not n in l1:
             result.append(n)
@@ -68,10 +68,10 @@ def max_with_negative_duplicate (numbers:list[int]) -> int:
     max_with_negative_duplicate([10, 20, -15, -11, 20]) => -1
     """
     result:int = -1
-    for i in range(len(numbers)):
-        num_abs = -numbers[i] if numbers[i] < 0 else numbers[i]
+    for i, number in enumerate(numbers):
+        num_abs = -number if number < 0 else number
         if num_abs != 0 and num_abs > result\
-              and __existsFromIndex(i + 1, numbers, -numbers[i]):
+              and __existsFromIndex(i + 1, numbers, -number):
             result = num_abs
     return result        
 
