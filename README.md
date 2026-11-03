@@ -7,3 +7,6 @@
 ## 3. Homework for 30.10.2026 - set operation functions
 * hw_4.py
 * print_tests.py
+## 4. Homework for 03.11.2026 - references and tuples
+* hw_5.py
+* print_tests.py
