@@ -18,7 +18,7 @@ def max_with_negative_duplicate (numbers:list[int]) -> int:
         reverse_numbers.add(rev_num)
     return result if result > 0 else -1 # has no negative
 
-def sumOfTwoExists(numbers:list[int], sum: int):
+def sumOfTwoExists(numbers:list[int], sum: int) -> bool:
     """
     Algorithm complexity should be O[N]
     "numbers" - list with int numbers; "sum" - int
@@ -40,7 +40,7 @@ def bubble_sort(numbers: list[int]) -> None:
     Common formula of the number of iterations for worst case is (n * (n - 1))/2
     """
 
-def remove_duplicates(numbers: list[int])->list[int] :
+def remove_duplicates(numbers: list[int]) -> list[int] :
     """
     Algorithm complexity O[N]
     returns new list containing all numbers from 'numbers' parameter
@@ -48,3 +48,10 @@ def remove_duplicates(numbers: list[int])->list[int] :
     Example:  'numbers' - [-1, 0, 100, -1, 20, 80, 20] the function should return
     new list [-1, 0, 100,  20, 80]
     """
+    result = []
+    unique_values = set()
+    for num in numbers:
+        if num not in unique_values:
+            result.append(num)
+            unique_values.add(num)
+    return result

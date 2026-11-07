@@ -37,6 +37,6 @@ remove_duplicates_expected:list[bool] =\
     [[-1, 0, 100,  20, 80], [1, 2, 3], [1, 2, 3, 4, 8]]
 for ind, in_obj in enumerate(test_in_remove_duplicates):
     print(f"remove_duplicates({in_obj}) =>\
-        expected: {{{bubble_sort_expected[ind]}}}; actual: {{{hw_6.remove_duplicates(in_obj)}}}")
+        expected: {{{remove_duplicates_expected[ind]}}}; actual: {{{hw_6.remove_duplicates(in_obj)}}}")
 
 print("=========")
