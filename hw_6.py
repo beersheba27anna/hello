@@ -8,6 +8,15 @@ def max_with_negative_duplicate (numbers:list[int]) -> int:
     Examples: max_with_negative_duplicate([-100, 20, 10, -10, 1, 1, 5, -30, -20, 100]) => 100
     max_with_negative_duplicate([10, 20, -15, -11, 20]) => -1
     """
+    result = 0 # not interested in 0 value, so looking for large values
+    reverse_numbers = set()
+    for num in numbers:
+        rev_num = -num
+        abs_value = num if num >= 0 else rev_num
+        if abs_value > result and num in reverse_numbers:
+            result = abs_value
+        reverse_numbers.add(rev_num)
+    return result if result > 0 else -1 # has no negative
 
 def sumOfTwoExists(numbers:list[int], sum: int):
     """
