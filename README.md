@@ -10,3 +10,6 @@
 ## 4. Homework for 03.11.2026 - references and tuples
 * hw_5.py
 * print_tests.py
+## 5. Homework for 05.11.2026 - sets and algorithms complexity
+* hw_6.py
+* print_tests.py
