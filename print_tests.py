@@ -26,8 +26,10 @@ test_in_bubble_sort: list[int] =\
 bubble_sort_expected:list[bool] =\
     [[70, 80, 90, 100], [1, 2, 3], [1, 2, 2, 3, 4, 8]]
 for ind, in_obj in enumerate(test_in_bubble_sort):
-    print(f"bubble_sort({in_obj}) =>\
-        expected: {{{bubble_sort_expected[ind]}}}; actual: {{{hw_6.bubble_sort(in_obj)}}}")
+    original = in_obj.copy()
+    hw_6.bubble_sort(in_obj)
+    print(f"bubble_sort({original}) =>\
+        expected: {{{bubble_sort_expected[ind]}}}; actual: {{{in_obj}}}")
 
 print("=========")
 

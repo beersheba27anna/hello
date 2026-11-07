@@ -26,6 +26,30 @@ def sumOfTwoExists(numbers:list[int], sum: int) -> bool:
     Examples: sumOfTwoExists([1, -1, 40, 50, 0], 0) => True;
     sumOfTwoExists([1, -1, 40, 50, 0], 42) => False
     """
+    remaining_values = set()
+    result = False
+    index = 0
+    size = len(numbers)
+    while not result and index < size:
+        if numbers[index] in remaining_values:
+            result = True
+        else:
+            remaining_values.add(sum-numbers[index])
+        index += 1
+    return result
+
+def move_max_to_end(numbers: list[int], stop: int) -> None:
+    '''
+    numbers - list with integer numbers
+    stop - index where to stop sorting
+    moves maximum element of the list to the end endign from the index stop
+    no return value
+    '''
+    limit = len(numbers)-1 if stop >= len(numbers) else stop
+    for index in range(limit):
+        if numbers[index] > numbers[index+1]:
+            numbers[index], numbers[index+1] =\
+                numbers[index+1], numbers[index]
 
 def bubble_sort(numbers: list[int]) -> None:
     """
@@ -39,6 +63,8 @@ def bubble_sort(numbers: list[int]) -> None:
     Totally 6 iterations: step 1 has 3 iterations, step 2 has 2 iterations ans step 4 has 1 iteratiion
     Common formula of the number of iterations for worst case is (n * (n - 1))/2
     """
+    for ind in range(len(numbers) - 1, 0, -1):
+        move_max_to_end(numbers, ind)
 
 def remove_duplicates(numbers: list[int]) -> list[int] :
     """
