@@ -1,40 +1,32 @@
-
-import random
-
 import functions
-def __is_sorted(numbers: list[int])->str:
-    lim: int = len(numbers) - 1
-    i: int = 0
-    while i < lim and numbers[i] <= numbers[i + 1]:
-        i += 1
-    return "sorted" if i >= lim else "unsorted"   
-def __has_duplicates(numbers:list[int]) -> str:
-    return "has duplicates" if len(numbers) > len(set(numbers)) else "doesn't have duplicates"
-print(f"  max_with_negative_duplicate([-100, 20, 10, -10, 1, 1, 5, -30, -20, 100]), expected: 100 ,\
-actual: {functions.max_with_negative_duplicate([-100, 20, 10, -10, 1, 1, 5, -30, -20, 100])}")
-print(f"  max_with_negative_duplicate([-100, 100, 20, 10, -10, 110, 1, 5, -30, -20, -110]), expected: 110 ,\
-actual: {functions.max_with_negative_duplicate([-100, 100,20, 10, -10, 110, 1, 1, 5, -30, -20,  -110])}")
-print(f" max_with_negative_duplicate([10, 20, -15, -11, 20]), expected: -1 ,\
-actual: {functions.max_with_negative_duplicate([10, 20, -15, -11, 20])}")
-print(f" max_with_negative_duplicate([10, 20, -15, -11, 20, 0, 0]), expected: -1 ,\
-actual: {functions.max_with_negative_duplicate([10, 20, -15, -11, 20, 0, 0])}")
-print(f"sumOfTwoExists([100, -10, 12, 12, -100], 24),\
- expected: True; actual: {functions.sumOfTwoExists([100, -10, 12, 12, -100], 24)}")
-print(f"sumOfTwoExists([100, -10, 12, 12, -100], 0),\
- expected: True; actual: {functions.sumOfTwoExists([100, -10, 12, 12, -100], 0)}")
-print(f"sumOfTwoExists([100, -10, 12, 12, -100], 25),\
- expected: False; actual: {functions.sumOfTwoExists([100, -10, 12, 12, -100], 25)}")
-l_unsorted = [random.randint(1, 1000) for _ in range(1000)]
-l_sorted = l_unsorted.copy()
-functions.bubble_sort(l_sorted)
-print(f"before sorting the list is {__is_sorted(l_unsorted)} after sorting the list is {__is_sorted(l_sorted)}")
-l_dup = [random.randint(1, 10) for _ in range(100)]
-l_no_dup = functions.remove_duplicates(l_dup)
-print(f"before removing duplicates the list {__has_duplicates(l_dup)}\
- after removing duplicates the list {__has_duplicates(l_no_dup)}")
-l_dup = [1, 8, 0, -1, 1, 10, 1000000, 8]
-l_no_dup = functions.remove_duplicates(l_dup)
-l_dup = [1, 8, 0, -1, 1, 10, 1000000, 8]
-print(f"before removing duplicates the list {l_dup}\
- after removing duplicates the expected list is [1,8, 0, -1, 10, 1000000]\
- actual list is {l_no_dup}")
+numbers: list[int] = [10, 10, 10, 20, 20, 20, 30, 30, 40]
+numbers_ins7 = numbers.copy()
+numbers_ins19 = numbers.copy()
+numbers_ins20 = numbers.copy()
+numbers_ins45 = numbers.copy()
+functions.insert_sorted(numbers_ins7, 7)
+functions.insert_sorted(numbers_ins19, 19)
+functions.insert_sorted(numbers_ins20, 20)
+functions.insert_sorted(numbers_ins45, 45)
+print(f"list is {numbers}, index of 10 is expected - 0, actual -\
+ {functions.binary_search(numbers, 10)}")
+print(f"list is {numbers}, index of 20 is expected - 3, actual -\
+ {functions.binary_search(numbers, 20)}")
+print(f"list is {numbers}, index of 40 is expected - 8, actual -\
+ {functions.binary_search(numbers, 40)}")
+print(f"list is {numbers}, index of 5 is expected - -1, actual -\
+ {functions.binary_search(numbers, 5)}")
+print(f"list is {numbers}, index of 15 is expected - -4, actual -\
+ {functions.binary_search(numbers, 15)}")
+print(f"list is {numbers}, index of 50 is expected - -10, actual -\
+ {functions.binary_search(numbers, 50)}")
+
+print(f"initial array is {numbers}, after iserting 7 the expected list is\
+[7, 10, 10, 10, 20, 20, 20, 30, 30, 40],the actual is {numbers_ins7}")
+print(f"initial array is {numbers}, after iserting 19 the expected list is\
+[ 10, 10, 10, 19, 20, 20, 20, 30, 30, 40],the actual is {numbers_ins19}")
+print(f"initial array is {numbers}, after iserting 20 the expected list is\
+[10, 10, 10, 20, 20, 20, 20, 30, 30, 40],the actual is {numbers_ins20}")
+print(f"initial array is {numbers}, after iserting 7 the expected list is\
+[10, 10, 10, 20, 20, 20, 30, 30, 40, 45],the actual is {numbers_ins45}")
+
