@@ -37,4 +37,4 @@ l_no_dup = functions.remove_duplicates(l_dup)
 l_dup = [1, 8, 0, -1, 1, 10, 1000000, 8]
 print(f"before removing duplicates the list {l_dup}\
  after removing duplicates the expected list is [1,8, 0, -1, 10, 1000000]\
- expexted list is {l_no_dup}")
+ actual list is {l_no_dup}")
