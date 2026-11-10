@@ -7,7 +7,18 @@ def max_with_negative_duplicate (numbers:list[int]) -> int:
     If no such number exists, returns -1
     Examples: max_with_negative_duplicate([-100, 20, 10, -10, 1, 1, 5, -30, -20, 100]) => 100
     max_with_negative_duplicate([10, 20, -15, -11, 20]) => -1
-    """          
+    """ 
+    helper: set[int] = set()
+    result: int = 0
+    for num in numbers:
+        abs_num = num if num > 0 else -num
+        if abs_num > result :
+           if -num in helper:
+               result = abs_num
+           else:
+               helper.add(num)
+    return result if result else -1       
+
 def sumOfTwoExists(numbers:list[int], sum: int):
     """
     Algorithm complexity should be O[N]
@@ -16,6 +27,13 @@ def sumOfTwoExists(numbers:list[int], sum: int):
     Examples: sumOfTwoExists([1, -1, 40, 50, 0], 0) => True;
     sumOfTwoExists([1, -1, 40, 50, 0], 42) => False
     """ 
+    helper: set[int] = set()
+    limit: int = len(numbers)
+    index: int = 0
+    while index < limit and numbers[index] not in helper:
+        helper.add(sum - numbers[index])
+        index += 1
+    return index < limit    
 def bubble_sort(numbers: list[int]) -> None:
     """
     Algorithm complexity is O[N^2]
@@ -28,6 +46,12 @@ def bubble_sort(numbers: list[int]) -> None:
     Totally 6 iterations: step 1 has 3 iterations, step 2 has 2 iterations ans step 4 has 1 iteratiion
     Common formula of the number of iterations for worst case is (n * (n - 1))/2
     """ 
+    unsorted: bool = True
+    size: int = len(numbers)
+    while(unsorted):
+        size -= 1
+        unsorted = bool(__move_max_to_end(numbers, size))
+
 def remove_duplicates(numbers: list[int])->list[int] :
     """
     Algorithm complexity O[N]
@@ -36,4 +60,14 @@ def remove_duplicates(numbers: list[int])->list[int] :
     Example:  'numbers' - [-1, 0, 100, -1, 20, 80, 20] the function should return
     new list [-1, 0, 100,  20, 80]
     """
+    helper: set[int] = set()
+    return [num for num in numbers if num not in helper and not helper.add(num)]
+def __move_max_to_end(numbers: list[int], length: int):
+    nSwaps: int = 0
+    for i in range(length):
+        if numbers[i] > numbers[i + 1]:
+            nSwaps += 1
+            numbers[i],numbers[i + 1] = numbers[i + 1],numbers[i]
+    return nSwaps
+        
 
