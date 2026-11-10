@@ -32,3 +32,9 @@ l_dup = [random.randint(1, 10) for _ in range(100)]
 l_no_dup = functions.remove_duplicates(l_dup)
 print(f"before removing duplicates the list {__has_duplicates(l_dup)}\
  after removing duplicates the list {__has_duplicates(l_no_dup)}")
+l_dup = [1, 8, 0, -1, 1, 10, 1000000, 8]
+l_no_dup = functions.remove_duplicates(l_dup)
+l_dup = [1, 8, 0, -1, 1, 10, 1000000, 8]
+print(f"before removing duplicates the list {l_dup}\
+ after removing duplicates the expected list is [1,8, 0, -1, 10, 1000000]\
+ expexted list is {l_no_dup}")
