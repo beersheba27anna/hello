@@ -11,7 +11,7 @@ def max_with_negative_duplicate (numbers:list[int]) -> int:
     helper: set[int] = set()
     result: int = 0
     for num in numbers:
-        abs_num = num if num > 0 else -num
+        abs_num = abs(num)
         if abs_num > result :
            if -num in helper:
                result = abs_num
