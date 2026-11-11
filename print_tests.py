@@ -1,44 +1,31 @@
-import hw_6
+import hw_7
+numbers: list[int] = [10, 10, 10, 20, 20, 20, 30, 30, 40]
+numbers_ins7 = numbers.copy()
+numbers_ins19 = numbers.copy()
+numbers_ins20 = numbers.copy()
+numbers_ins45 = numbers.copy()
+hw_7.insert_sorted(numbers_ins7, 7)
+hw_7.insert_sorted(numbers_ins19, 19)
+hw_7.insert_sorted(numbers_ins20, 20)
+hw_7.insert_sorted(numbers_ins45, 45)
+print(f"list is {numbers}, index of 10 is expected - 0, actual -\
+ {hw_7.binary_search(numbers, 10)}")
+print(f"list is {numbers}, index of 20 is expected - 3, actual -\
+ {hw_7.binary_search(numbers, 20)}")
+print(f"list is {numbers}, index of 40 is expected - 8, actual -\
+ {hw_7.binary_search(numbers, 40)}")
+print(f"list is {numbers}, index of 5 is expected - -1, actual -\
+ {hw_7.binary_search(numbers, 5)}")
+print(f"list is {numbers}, index of 15 is expected - -4, actual -\
+ {hw_7.binary_search(numbers, 15)}")
+print(f"list is {numbers}, index of 50 is expected - -10, actual -\
+ {hw_7.binary_search(numbers, 50)}")
 
-test_in_min_max: list[list[int]] = [
-    [-100, 20, 10, -10, 1, 1, 5, -30, -20, 100], [10, 20, -15, -11, 20]]
-max_with_negative_duplicate_expected: list[int] =\
-    [100, -1]
-
-for ind, in_obj in enumerate(test_in_min_max):
-    print(f"max_with_negative_duplicate({in_obj}) =>\
-        expected: {{{max_with_negative_duplicate_expected[ind]}}}; actual: {{{hw_6.max_with_negative_duplicate(in_obj)}}}")
-
-print("=========")
-
-test_in_sumOfTwoExists: list[tuple[list[int], int]] =\
-    [([1, -1, 40, 50, 0], 0), ([1, -1, 40, 50, 0], 42)]
-sumOfTwoExists_expected:list[bool] =\
-    [True, False]
-for ind, in_obj in enumerate(test_in_sumOfTwoExists):
-    print(f"sumOfTwoExists({in_obj}) =>\
-        expected: {{{sumOfTwoExists_expected[ind]}}}; actual: {{{hw_6.sumOfTwoExists(*in_obj)}}}")
-
-print("=========")
-
-test_in_bubble_sort: list[int] =\
-    [[100, 90, 80, 70], [1, 2, 3], [3, 2, 1, 8, 2, 4]]
-bubble_sort_expected:list[bool] =\
-    [[70, 80, 90, 100], [1, 2, 3], [1, 2, 2, 3, 4, 8]]
-for ind, in_obj in enumerate(test_in_bubble_sort):
-    original = in_obj.copy()
-    hw_6.bubble_sort(in_obj)
-    print(f"bubble_sort({original}) =>\
-        expected: {{{bubble_sort_expected[ind]}}}; actual: {{{in_obj}}}")
-
-print("=========")
-
-test_in_remove_duplicates: list[int] =\
-    [[-1, 0, 100, -1, 20, 80, 20], [1, 2, 3], [3, 2, 1, 8, 2, 4]]
-remove_duplicates_expected:list[bool] =\
-    [[-1, 0, 100,  20, 80], [1, 2, 3], [1, 2, 3, 4, 8]]
-for ind, in_obj in enumerate(test_in_remove_duplicates):
-    print(f"remove_duplicates({in_obj}) =>\
-        expected: {{{remove_duplicates_expected[ind]}}}; actual: {{{hw_6.remove_duplicates(in_obj)}}}")
-
-print("=========")
+print(f"initial array is {numbers}, after iserting 7 the expected list is\
+[7, 10, 10, 10, 20, 20, 20, 30, 30, 40],the actual is {numbers_ins7}")
+print(f"initial array is {numbers}, after iserting 19 the expected list is\
+[ 10, 10, 10, 19, 20, 20, 20, 30, 30, 40],the actual is {numbers_ins19}")
+print(f"initial array is {numbers}, after iserting 20 the expected list is\
+[10, 10, 10, 20, 20, 20, 20, 30, 30, 40],the actual is {numbers_ins20}")
+print(f"initial array is {numbers}, after iserting 7 the expected list is\
+[10, 10, 10, 20, 20, 20, 30, 30, 40, 45],the actual is {numbers_ins45}")

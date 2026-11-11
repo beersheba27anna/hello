@@ -13,3 +13,6 @@
 ## 5. Homework for 05.11.2026 - sets and algorithms complexity
 * hw_6.py
 * print_tests.py
+## 6. Homework for 10.11.2026 - search and sorting
+* hw_7.py
+* print_tests.py
