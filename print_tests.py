@@ -4,7 +4,7 @@ numbers_ins7 = numbers.copy()
 numbers_ins19 = numbers.copy()
 numbers_ins20 = numbers.copy()
 numbers_ins45 = numbers.copy()
-numbers_empty7 = []
+numbers_empty7: list[int] = []
 hw_7.insert_sorted(numbers_empty7, 7)
 hw_7.insert_sorted(numbers_ins7, 7)
 hw_7.insert_sorted(numbers_ins19, 19)
