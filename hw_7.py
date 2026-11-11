@@ -9,6 +9,18 @@ def binary_search(numbers: list[int], num:int)->int:
     binary_search(numbers, 20) -> 3 (not 4),binary_search(numbers, 15) -> -4 (not -1),
     binary_search(numbers, 45) -> -10
     """
+    left: int = 0
+    right: int = len(numbers) - 1
+    middle: int = (left + right) // 2
+    while left <= right and numbers[left] != num:
+        if num < numbers[middle]:
+            right = middle - 1
+        elif num > numbers[middle]:
+            left = middle + 1
+        else:
+            right = middle
+        middle = (left + right) // 2
+    return left if left <= right else -(left+1)
 
 def insert_sorted(numbers: list[int], num: int) -> None:
     """
@@ -20,4 +32,3 @@ def insert_sorted(numbers: list[int], num: int) -> None:
     after insert_sorted (numbers, 20) (initial list) the list will contain [10, 10, 10, 20, 20, 20, 20, 30, 30, 40]
 
     """
-    
