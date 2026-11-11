@@ -22,6 +22,13 @@ def binary_search(numbers: list[int], num:int)->int:
         middle = (left + right) // 2
     return left if left <= right else -(left+1)
 
+def __insert_with_shift(numbers: list[int], num: int, index: int) -> None:
+    if len(numbers) <= index:
+        numbers.append(num)
+    else:
+        numbers[index+1:] = numbers[index:]
+        numbers[index] = num
+
 def insert_sorted(numbers: list[int], num: int) -> None:
     """
     numbers: sorted list
@@ -32,3 +39,7 @@ def insert_sorted(numbers: list[int], num: int) -> None:
     after insert_sorted (numbers, 20) (initial list) the list will contain [10, 10, 10, 20, 20, 20, 20, 30, 30, 40]
 
     """
+    found_index = binary_search(numbers, num)
+    if found_index < 0:
+        found_index = -found_index - 1
+    __insert_with_shift(numbers, num, found_index)
