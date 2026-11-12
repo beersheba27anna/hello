@@ -11,14 +11,14 @@ part1 = [3, 5, 7, -11 ]
 part2 = [ 0, 4, -10, -20 ]
 merge_expected = [ 0, 3, 4, 5, 7, -10, -11,-20]
 unittest_print.print_test(f"Sort of list {numbers}", sorted_numbers,\
-                           functions.bubble_sort(numbers) )
+                           functions.bubble_sorted(numbers) )
 unittest_print.print_test(f"Sort of list {numbers} according to abs values", sorted_numbers_abs,\
-                           functions.bubble_sort(numbers, abs ) ) # pyright: ignore[reportArgumentType]
+                           functions.bubble_sorted(numbers, abs ) ) # pyright: ignore[reportArgumentType]
 unittest_print.print_test(f"Sort of list {numbers} according to even first in Asc, odd after even in Desc",sorted_even_odd ,\
                            functions.even_asc_odd_desc(numbers) )
 
 unittest_print.print_test(f"Sort of list {strings} ",sorted_len_str ,\
-                           functions.bubble_sort(strings, lambda s: (len(str(s)), s)) )
+                           functions.bubble_sorted(strings, lambda s: (len(str(s)), s)) )
 
 unittest_print.print_test(f"merge of two parts {part1} and {part2} according to abs values",\
                           merge_expected, functions.merge(part1, part2, abs) )# pyright: ignore[reportArgumentType]

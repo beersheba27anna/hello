@@ -1,12 +1,12 @@
 from typing import Callable, Sequence
 
 
-def bubble_sort(items: Sequence[object], key: Callable[[object], object]|None = None)->None:
+def bubble_sorted(items: Sequence[object], key: Callable[[object], object]|None = None)->list[object]:
     """
     Sequence[object] means immutable list, so items cannot be updated
-    Sorts a given sequence of any objects using algorithm "bubble sort"
+    returns new list of objects sorted using algorithm "bubble sort"
       in accorgance with key function-converter like standard Python sorting 
-    items - list of any objects
+    items - sequence of any objects
     key - a function taking one object and returning converted object having standard operator ">"
           default value None designating standard Python sorting with no converting initial object
     For example, bubble_sort(numbers) - regular sort of numbers 
