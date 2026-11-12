@@ -12,15 +12,13 @@ def binary_search(numbers: list[int], num:int)->int:
     left: int = 0
     right: int = len(numbers) - 1
     middle: int = (left + right) // 2
-    result: int = -1
     while left <= right :
-        if num <= numbers[middle] :
-            right = middle - 1
-            if num == numbers[middle]: result = middle
-        else:
+        if num > numbers[middle] :
             left = middle + 1
+        else:
+            right = middle - 1
         middle =  (left + right) // 2
-    return result if result > -1 else -(left + 1)   
+    return left if left < len(numbers) and numbers[left] == num else -(left + 1) 
 def insert_sorted(numbers: list[int], num: int) -> None:
     """
     numbers: sorted list
