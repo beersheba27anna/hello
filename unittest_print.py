@@ -15,6 +15,6 @@ def print_test(description: str, expected: object, actual: object) -> None:
     print(f"{color}{description}; expected is {expected}; actual is {actual}{RESET}") 
 
 def print_results() :
-    print(f"Total: {__failed_count + __passed_count}\n\
+    print(f"    Total:  {__failed_count + __passed_count}\n\
     {GREEN}Passed: {__passed_count}\n\
     {RED}Failed: {__failed_count}{RESET}")    
