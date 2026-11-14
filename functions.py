@@ -1,18 +1,23 @@
 from typing import Callable, Sequence
 
 
-def move_max_to_end(numbers: list[int], stop: int) -> None:
-    '''
-    numbers - list with integer numbers
-    stop - index where to stop sorting
-    moves maximum element of the list to the end endign from the index stop
-    no return value
-    '''
+def move_max_to_end(numbers: list[int], stop: int) -> int:
+    """
+    - numbers - list with integer numbers
+    - stop - index where to stop sorting
+    - moves maximum element of the list to the end ending from the index stop
+    - returns int value index of minimum position affected by the last exchange
+        returns -1 with no exchange hapenning
+    """
+    last_exchange_index = -1
     limit = len(numbers)-1 if stop >= len(numbers) else stop
     for index in range(limit):
         if numbers[index] > numbers[index+1]:
             numbers[index], numbers[index+1] =\
                 numbers[index+1], numbers[index]
+            last_exchange_index = index
+    return last_exchange_index
+
 
 def bubble_sort_old(numbers: list[int]) -> None:
     """
@@ -23,11 +28,13 @@ def bubble_sort_old(numbers: list[int]) -> None:
     1. Pushing 100 to the end of whole list, as a result there will be [90, 80, 70, 100] - 100 on its place at end
     2. Pushing 90 to the end of the part comprising of 3 ([90, 80, 70]) first elements, as a result there will be [ 80, 70, 90,100]
     3. Pushing 80 to the end of the part comprising of 2 ([80, 70]) first elements, as a result there will be [  70,80, 90,100]
-    Totally 6 iterations: step 1 has 3 iterations, step 2 has 2 iterations ans step 4 has 1 iteratiion
+    Totally 6 iterations: step 1 has 3 iterations, step 2 has 2 iterations ans step 3 has 1 iteration
     Common formula of the number of iterations for worst case is (n * (n - 1))/2
     """
-    for ind in range(len(numbers) - 1, 0, -1):
-        move_max_to_end(numbers, ind)
+    unsorted_end = len(numbers) - 1
+    while unsorted_end > 0:
+        unsorted_end = move_max_to_end(numbers, unsorted_end)
+
 
 def bubble_sorted(items: Sequence[object], key: Callable[[object], object]|None = None)->list[object]:
     """
@@ -42,12 +49,14 @@ def bubble_sorted(items: Sequence[object], key: Callable[[object], object]|None 
     Unlike the standard sorting methods of Python, the function may be called with no explicit specifying key=                
     """
 
+
 def even_asc_odd_desc(numbers: list[int])->list[int]:
     """
     returns new list of numbers sorted in the following order:
     The even numbers ordered by ascending order reside before odd numbers ordered by descending order
     For example, even_asc_odd_desc([-3, -10, 12, 3, -21, 6, 21, 5, 4 ]) returns [-10, 4, 6, 12, 21, 5, 3, -3, -21]
     """
+
 
 def  merge(part1: Sequence[object], part2: Sequence[object], key: Callable[[object], object]|None = None)->list[object]:
     """
