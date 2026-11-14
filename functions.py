@@ -1,72 +1,60 @@
-def indexOf(numbers:list[int], num:int)->int:
-    """
-        "numbers" - list with int numbers; "num" - int
-        if "num" exists in "numbers", returns index of its first occurrence,
-        otherwise -1. Examples: indexOf([10, 20, 30, 20, -1],20) => 1,
-        indexOf([10, 20, 30, 20, -1],23) => -1
-    """
-    i:int = 0
-    size:int = len(numbers)
-    while i < size and numbers[i] != num:
-        i = i + 1
-    return i if i < size else -1
+from typing import Callable, Sequence
 
-def lastIndexOf(numbers:list[int], num:int)->int:
-    """
-        "numbers" - list with int numbers; "num" - int
-        if "num" exists in "numbers", returns index of its last occurrence,
-        otherwise -1. Examples: lastIndexOf([10, 20, 30, 20, -1],20) => 3,
-        lastIndexOf([10, 20, 30, 20, -1],23) => -1
-    """
-    i:int = len(numbers) - 1
-    while i >= 0 and numbers[i] != num:
-        i = i - 1
-    return i
 
-def min_even (numbers:list[int])->int:
-    """
-    "numbers" - list with int numbers
-    returns minimal even number
-    assumption: at least one even number exists in "numbers"
-    no need to check that assumption (usually the assumptions are never checked ) 
-    example: min_even (-10001, 10, 20, 8, -7) => 8
-    """ 
-    result:int = -1 # default odd number
-    for num in numbers:
-        if num % 2 == 0 and (result == -1 or result > num):
-            result = num
-    return result
+def move_max_to_end(numbers: list[int], stop: int) -> None:
+    '''
+    numbers - list with integer numbers
+    stop - index where to stop sorting
+    moves maximum element of the list to the end endign from the index stop
+    no return value
+    '''
+    limit = len(numbers)-1 if stop >= len(numbers) else stop
+    for index in range(limit):
+        if numbers[index] > numbers[index+1]:
+            numbers[index], numbers[index+1] =\
+                numbers[index+1], numbers[index]
 
-def count(numbers:list[int], num:int)->int:
+def bubble_sort_old(numbers: list[int]) -> None:
     """
-    "numbers" - list with int numbers; "num" - int
-    returns count of "num" occurrences in "numbers".
-      Examples: count([10, 20, 30, 20, -1],20) => 2,
-    count([10, 20, 30, 20, -1],23) => 0
+    Algorithm complexity is O[N^2]
+    Write implementation of the bubble sorting algorithm
+    Bubble sorting algorithm: sequentional pushing maximal numbers to the end
+    Example: Initial list [100, 90, 80, 70] - worst case regarding total number of iterations
+    1. Pushing 100 to the end of whole list, as a result there will be [90, 80, 70, 100] - 100 on its place at end
+    2. Pushing 90 to the end of the part comprising of 3 ([90, 80, 70]) first elements, as a result there will be [ 80, 70, 90,100]
+    3. Pushing 80 to the end of the part comprising of 2 ([80, 70]) first elements, as a result there will be [  70,80, 90,100]
+    Totally 6 iterations: step 1 has 3 iterations, step 2 has 2 iterations ans step 4 has 1 iteratiion
+    Common formula of the number of iterations for worst case is (n * (n - 1))/2
     """
-    result = 0
-    for x in numbers:
-        if num == x:
-            result = result + 1
-    return result
+    for ind in range(len(numbers) - 1, 0, -1):
+        move_max_to_end(numbers, ind)
 
-def sumOfTwoExists(numbers:list[int], sum:int)->bool:
+def bubble_sorted(items: Sequence[object], key: Callable[[object], object]|None = None)->list[object]:
     """
-    Optional task for advanced students
-    To apply only the types discussed at the course up to now
-    "numbers" - list with int numbers; "sum" - int
-    returns True if "numbers" includes two numbers, sum of which equals "sum"
-    Examples: sumOfTwoExists([1, -1, 40, 50, 0], 0) => True;
-    sumOfTwoExists([1, -1, 40, 50, 0], 42) => False
-    """ 
-    result:bool = False
-    i:int = 0
-    size:int = len(numbers)
-    covered:list[int] = []
-    while not result and i < size:
-        if numbers[i] in covered:
-            result = True
-        else:
-            covered.append(sum - numbers[i])
-        i = i + 1
-    return result
+    Sequence[object] means immutable list, so items cannot be updated
+    returns new list of objects sorted using algorithm "bubble sort"
+      in accorgance with key function-converter like standard Python sorting 
+    items - sequence of any objects
+    key - a function taking one object and returning converted object having standard operator ">"
+          default value None designating standard Python sorting with no converting initial object
+    For example, bubble_sort(numbers) - regular sort of numbers 
+                 bubble_sort(numbers, abs) - sort of numbers in accordance with their abs values
+    Unlike the standard sorting methods of Python, the function may be called with no explicit specifying key=                
+    """
+
+def even_asc_odd_desc(numbers: list[int])->list[int]:
+    """
+    returns new list of numbers sorted in the following order:
+    The even numbers ordered by ascending order reside before odd numbers ordered by descending order
+    For example, even_asc_odd_desc([-3, -10, 12, 3, -21, 6, 21, 5, 4 ]) returns [-10, 4, 6, 12, 21, 5, 3, -3, -21]
+    """
+
+def  merge(part1: Sequence[object], part2: Sequence[object], key: Callable[[object], object]|None = None)->list[object]:
+    """
+    part1 and part2 -  sorted in accordance with key function-converter lists of any objects 
+    key - a function taking one object and returning converted object having standard operator ">"
+              default value None designating standard Python sorting with no converting initial objects
+    returns new list, sorted in accordance with key function-converter, comprising of two lists-parts 
+    For example, merge([-11, 3, 5, 7], [-20, -10, 0, 4])  => [-20, -11, -10, 0, 3, 4, 5, 7]
+    merge([3, 5, 7, -11 ], [ 0, 4, -10, -20 ], abs)  => [ 0, 3, 4, 5, 7, -10, -11,-20]
+    """
