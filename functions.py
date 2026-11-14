@@ -61,11 +61,6 @@ def even_asc_odd_desc(numbers: list[int])->list[int]:
         key=lambda num: (0, num) if num % 2 == 0 else (1, -num))
 
 
-def __extract_by_flatten_index(
-        index: int, size_l1: int,
-        parts: tuple[Sequence[object], Sequence[object]]):
-    return parts[0][index] if index < size_l1 else parts[1][index - size_l1]
-
 def  merge(part1: Sequence[object], part2: Sequence[object], key: Callable[[object], object]|None = None)->list[object]:
     """
     part1 and part2 - sorted in accordance with key function-converter lists of any objects 
@@ -75,14 +70,21 @@ def  merge(part1: Sequence[object], part2: Sequence[object], key: Callable[[obje
     For example, merge([-11, 3, 5, 7], [-20, -10, 0, 4])  => [-20, -11, -10, 0, 3, 4, 5, 7]
     merge([3, 5, 7, -11 ], [ 0, 4, -10, -20 ], abs)  => [ 0, 3, 4, 5, 7, -10, -11,-20]
     """
+
+    ind1, ind2 = 0, 0
     size_l1 = len(part1)
     size_l2 = len(part2)
-    parts: tuple[Sequence[object], Sequence[object]] = (part1, part2)
-    key_values = [key(__extract_by_flatten_index(
-        ind, size_l1, parts))\
-        if key is not None else __extract_by_flatten_index(
-        ind, size_l1, parts)\
-        for ind in range(size_l1+size_l2)]
-    indices = bubble_sort_values_by_keys(key_values)
-    return [__extract_by_flatten_index(
-        ind, size_l1, parts) for ind in indices]
+
+    result:list[object] = []
+
+    part1_keys = [key(num) if key is not None else num for num in part1]
+    part2_keys = [key(num) if key is not None else num for num in part2]
+    while ind1 < size_l1 or ind2 < size_l2:
+        if ind2 >= size_l2 or (
+                ind1 < size_l1 and not (part1_keys[ind1] > part2_keys[ind2])):
+            result.append(part1[ind1])
+            ind1 += 1
+        else:
+            result.append(part2[ind2])
+            ind2 += 1
+    return result
