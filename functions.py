@@ -1,25 +1,27 @@
 from typing import Callable, Sequence
 
 
-def move_max_to_end(numbers: list[int], stop: int) -> int:
+def move_max_by_key_to_end(
+        numbers: list[int], keys: list[object], stop: int) -> int:
     """
     - numbers - list with integer numbers
+    - keys - corresponding to a specific value from numbers
     - stop - index where to stop sorting
-    - moves maximum element of the list to the end ending from the index stop
+    - moves maximum element (by corresponding key) of the list to the end ending from the index stop
     - returns int value index of minimum position affected by the last exchange
         returns -1 with no exchange hapenning
     """
     last_exchange_index = -1
     limit = len(numbers)-1 if stop >= len(numbers) else stop
     for index in range(limit):
-        if numbers[index] > numbers[index+1]:
+        if keys[numbers[index]] > keys[numbers[index+1]]:
             numbers[index], numbers[index+1] =\
                 numbers[index+1], numbers[index]
             last_exchange_index = index
     return last_exchange_index
 
 
-def bubble_sort_old(numbers: list[int]) -> None:
+def bubble_sort_values_by_keys(numbers: list[int], keys: list[object]) -> None:
     """
     Algorithm complexity is O[N^2]
     Write implementation of the bubble sorting algorithm
@@ -33,7 +35,7 @@ def bubble_sort_old(numbers: list[int]) -> None:
     """
     unsorted_end = len(numbers) - 1
     while unsorted_end > 0:
-        unsorted_end = move_max_to_end(numbers, unsorted_end)
+        unsorted_end = move_max_by_key_to_end(numbers, keys, unsorted_end)
 
 
 def bubble_sorted(items: Sequence[object], key: Callable[[object], object]|None = None)->list[object]:
@@ -48,6 +50,10 @@ def bubble_sorted(items: Sequence[object], key: Callable[[object], object]|None 
                  bubble_sort(numbers, abs) - sort of numbers in accordance with their abs values
     Unlike the standard sorting methods of Python, the function may be called with no explicit specifying key=                
     """
+    key_values = [key(x) if key is not None else x for x in items]
+    indices = list(range(len(items)))
+    bubble_sort_values_by_keys(indices, key_values)
+    return [items[x] for x in indices]
 
 
 def even_asc_odd_desc(numbers: list[int])->list[int]:
@@ -57,6 +63,10 @@ def even_asc_odd_desc(numbers: list[int])->list[int]:
     For example, even_asc_odd_desc([-3, -10, 12, 3, -21, 6, 21, 5, 4 ]) returns [-10, 4, 6, 12, 21, 5, 3, -3, -21]
     """
 
+def __extract_by_flatten_index(
+        index: int, size_l1: int,
+        parts: list[Sequence[object], Sequence[object]]):
+    return parts[0][index] if index < size_l1 else parts[1][index - size_l1]
 
 def  merge(part1: Sequence[object], part2: Sequence[object], key: Callable[[object], object]|None = None)->list[object]:
     """
@@ -67,3 +77,15 @@ def  merge(part1: Sequence[object], part2: Sequence[object], key: Callable[[obje
     For example, merge([-11, 3, 5, 7], [-20, -10, 0, 4])  => [-20, -11, -10, 0, 3, 4, 5, 7]
     merge([3, 5, 7, -11 ], [ 0, 4, -10, -20 ], abs)  => [ 0, 3, 4, 5, 7, -10, -11,-20]
     """
+    size_l1 = len(part1)
+    size_l2 = len(part2)
+    parts: list[Sequence[object]] = [part1, part2]
+    indices = list(range(size_l1+size_l2))
+    key_values = [key(__extract_by_flatten_index(
+        ind, size_l1, parts))\
+        if key is not None else __extract_by_flatten_index(
+        ind, size_l1, parts)\
+        for ind in indices]
+    bubble_sort_values_by_keys(indices, key_values)
+    return [__extract_by_flatten_index(
+        ind, size_l1, parts) for ind in indices]
