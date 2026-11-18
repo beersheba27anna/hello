@@ -16,6 +16,35 @@ def __move_end_by_length[T](
             next_ind -= 1
         items[start_seg1 + shift] = stored
 
+def __binary_search[T](
+        items: list[T], key: Callable[[T], T], searchable: T,
+        start: int = 0, size: int|None = None) -> int:
+    """
+    O[logN]
+    items: list sorted by predicate key
+    searchable: key value being searched
+    returns an index of the first occurrence at which "searchable" resides in "items" or
+    negative number as -(index_sort + 1) where index_sort is the index where "searchable" should have been in "items"
+    start: index to start from
+    """
+    if size is None:
+        size = len(items) - start
+
+    left: int = start
+    right: int = start + size - 1
+    middle: int = (left + right) // 2
+
+    while left <= right and key(items[left]) != searchable:
+        middle_key = key(items[middle])
+        if searchable < middle_key:
+            right = middle - 1
+        elif searchable > middle_key:
+            left = middle + 1
+        else:
+            right = middle
+        middle = (left + right) // 2
+    return left if left <= right else -(left+1)
+
 def merge_in_place[T](
         items: list[T], start: int, len1: int, size: int,
         key: Callable[[T], T]|None=None) -> None:
@@ -42,10 +71,11 @@ def merge_in_place[T](
 
     while start1 < start2 < end:
         if key(items[start1]) > key(items[start2]):
-            move_size = 0
-            while start2 + move_size < end and\
-                    key(items[start2 + move_size]) < key(items[start1]):
-                move_size += 1
+            insert_place = __binary_search(
+                items, key, key(items[start1]), start2, end-start2)
+            if insert_place < 0:
+                insert_place = -insert_place - 1
+            move_size = insert_place - start2
             __move_end_by_length(items, start1, start2, move_size)
             start1 += move_size
             start2 += move_size
