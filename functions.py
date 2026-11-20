@@ -1,53 +1,37 @@
-from typing import Callable
+from typing import Callable, Sequence
+from bisect import bisect_left, bisect_right
 
-def __move_end_by_length[T](
-        items: list[T], start_seg1: int, start_seg2: int, move_size: int
-        ) -> None:
+
+def get_all_range(numbers: Sequence[int], allowed: range|None = None)->list[int]:
     """
-    moves segment of size move_size at starting start_seg2 at position
-    start_seg1 while shifting segment of the same size from start_seg1
-    forward
+    numbers - sorted list of numbers in ascending order
+    allowed - range of numbers (may be empty)
+        returns list of numbers that greater or equal minimal value of range and less than maximal value 
+    for empty range the function returns the empty list
+    for missed second argument the function returns the same "numbers"
     """
-    for shift in range(move_size):
-        next_ind = start_seg2 + shift
-        stored = items[next_ind]
-        while next_ind > start_seg1 + shift:
-            items[next_ind] = items[next_ind - 1]
-            next_ind -= 1
-        items[start_seg1 + shift] = stored
+    pass
 
-def merge_in_place[T](
-        items: list[T], start: int, len1: int, size: int,
-        key: Callable[[T], T]|None=None) -> None:
+
+def get_all_not_in_range(numbers: Sequence[int], disallowed: range)->list[int] :
     """
-    merges two sorted by key subparts in place of a list's part
-    Time complexity O[N]
-    Space complexity O[1] no additional list is created
-    items - list of T objects (T any type generic at call time)
-    start - start index of a being merged list
-    len1 - length of the first subpart
-    size - length of whole part
-    Example: items - [3, 5, 7, -11, 0, 4, -10, -20, 100, -80,-4, 8 ], key - abs function
-    start - 0; len1 - 4; size - 8
-    call as  merge_in_place(items, start=0, len1=4, size=8, key=abs)
-    updated itesms should be as [0, 3, 4, 5, 7, -10, -11, -20, 100, -80,-4, 8]
+    numbers - sorted list of numbers in ascending order 
+    disallowed - range of numbers (may be empty)
+        returns list of numbers from "numbers" that are not in a given range
     """
-    start1 = start
-    start2 = start + len1
+    pass
 
-    end = start + size
 
-    if key is None:
-        key = lambda obj: obj
 
-    while start1 < start2 < end:
-        if key(items[start1]) > key(items[start2]):
-            move_size = 0
-            while start2 + move_size < end and\
-                    key(items[start2 + move_size]) < key(items[start1]):
-                move_size += 1
-            __move_end_by_length(items, start1, start2, move_size)
-            start1 += move_size
-            start2 += move_size
-        else:
-            start1 += 1
+def my_sorted[T, K](items: Sequence[T],/,*, key:Callable[[T], T|K]|None=None) -> list[T]:
+    """
+    returns sorted by key list
+    implementation according the following algorithm:
+    "items" is divided on the parts, each of which contains sqrt(len(items)) items
+    Each part should be sorted separately by bubble sorting algorithm that you have already implemented
+    After that all parts should be merged.
+    No limitations for extra space
+    Note: To use "sqrt" function from the module "math". This function returns float type
+        so you should apply function "int" and the last part may contain more items
+    """
+    pass
