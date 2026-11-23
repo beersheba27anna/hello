@@ -41,6 +41,62 @@ def get_all_not_in_range(numbers: Sequence[int], disallowed: range) -> list[int]
         list(numbers[index_right:])
     return result
 
+def __move_max_by_key_to_end[T](
+        indices: list[int], keys: list[T], stop: int) -> int:
+    """
+    - indices - list with integer indices of elements in keys list
+    - keys - a corresponding key to a specific value in original sequence being sorted
+    - stop - index where to stop sorting
+    - moves maximum element (by corresponding key) of the list to the end, ending is defined by the index stop
+    - returns int value index of minimum position participating in the last exchange
+        returns -1 with no exchange happening
+    """
+    last_exchange_index = -1
+    for index in range(stop):
+        if keys[indices[index]] > keys[indices[index+1]]: # type: ignore
+            indices[index], indices[index+1] = indices[index+1], indices[index]
+            last_exchange_index = index
+    return last_exchange_index
+
+
+def __bubble_sort_values_by_keys[K](
+        keys: list[K], key_prefix: int = 0) -> list[int]:
+    """
+    Bubble sort algorithm returning indices of the elements
+    to sort the keys in ascending order
+    key_prefix - desired index start position
+    """
+    indices = list(range(len(keys)))
+    unsorted_end = len(keys) - 1
+    while unsorted_end > 0:
+        unsorted_end = __move_max_by_key_to_end(
+            indices, keys, unsorted_end)
+    return [ind+key_prefix for ind in indices]
+
+
+def merge_sorted_lists[K](
+        blocks: list[list[int]], key_list:list[K]) -> list[int]:
+    num_blocks = len(blocks)
+    indices = [0] * num_blocks
+    sizes = [len(block) for block in blocks]
+    is_available = [
+        indices[i] < sizes[i] for i in range(num_blocks)]
+    num_unfinished = sum(is_available)
+    result: list[int] = []
+
+    while num_unfinished:
+        min_index, min_key = -1, None
+        for i in range(num_blocks):
+            if is_available[i]:
+                current_key = key_list[blocks[i][indices[i]]]
+                if min_index < 0 or current_key < min_key: # type: ignore
+                    min_index, min_key = i, current_key
+        result.append(min_key) # type: ignore
+        indices[min_index] += 1
+        if indices[min_index] >= sizes[min_index]:
+            is_available[min_index] = False
+            num_unfinished -= 1
+    return result
 
 
 def my_sorted[T, K](items: Sequence[T],/,*, key:Callable[[T], T|K]|None=None) -> list[T]:
@@ -54,4 +110,18 @@ def my_sorted[T, K](items: Sequence[T],/,*, key:Callable[[T], T|K]|None=None) ->
     Note: To use "sqrt" function from the module "math". This function returns float type
         so you should apply function "int" and the last part may contain more items
     """
-    pass
+    size = len(items)
+    group_size = max(1, int(sqrt(size)))
+    steps = size // group_size
+    sorted_blocks: list[list[int]] = []
+    if key is None:
+        key = lambda x: x
+    key_list = [key(item) for item in items]
+    for step in range(steps):
+        start = step * group_size
+        end = (step + 1) * group_size if step != steps - 1 else size
+        sorted_blocks.append(
+            __bubble_sort_values_by_keys(key_list[start:end], key_prefix=start))
+    return [items[index] \
+        for index in merge_sorted_lists(
+            sorted_blocks, key_list)]
